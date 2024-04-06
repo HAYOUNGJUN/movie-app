@@ -20,7 +20,7 @@ type MovieSlideProps = {
 export default function MovieSlide({ category }: MovieSlideProps) {
   const { data, isLoading, isError, error } = useFetchMoviesQuery(category);
   const plugin = React.useRef(
-    Autoplay({ delay: 2000, stopOnInteraction: true })
+    Autoplay({ delay: 2000, stopOnInteraction: false, stopOnMouseEnter: true })
   );
 
   if (isLoading) {
