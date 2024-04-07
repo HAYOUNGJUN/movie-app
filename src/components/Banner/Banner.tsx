@@ -5,7 +5,7 @@ import './Banner.style.css';
 export default function Banner() {
   const { data, isLoading, isError, error } = useFetchMoviesQuery('popular');
   const randomIndex = Math.floor(Math.random() * 20);
-  console.log(data);
+  // console.log(data);
 
   if (isLoading) {
     return <LoadingIndicator size={150} />;

@@ -1,7 +1,18 @@
-import { NavLink } from 'react-router-dom';
+import { FormEvent, useRef } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Button } from './ui/button';
 
 export default function MainNavigation() {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    navigate(`/movies?q=${inputRef.current!.value}`);
+    event.currentTarget.reset();
+  }
+
   return (
     <header className='flex justify-between p-6 bg-black items-center'>
       <nav className='flex items-center'>
@@ -24,13 +35,19 @@ export default function MainNavigation() {
         </ul>
       </nav>
       <div className='mx-4'>
-        <input
-          className='rounded h-10 w-56 bg-zinc-700 placeholder:pl-2 border border-zinc-500'
-          placeholder='Search'
-        />
-        <Button className='bg-red-600 rounded px-4 py-2 ml-2 font-bold hover:bg-red-500'>
-          Search
-        </Button>
+        <form onSubmit={handleSubmit}>
+          <input
+            className='rounded h-10 w-56 bg-zinc-700 placeholder:pl-2 border border-zinc-500'
+            placeholder='Search'
+            ref={inputRef}
+          />
+          <Button
+            className='bg-red-600 rounded px-4 py-2 ml-2 font-bold hover:bg-red-500'
+            type='submit'
+          >
+            Search
+          </Button>
+        </form>
       </div>
     </header>
   );

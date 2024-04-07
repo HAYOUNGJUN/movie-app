@@ -33,7 +33,7 @@ export default function MovieSlide({ category }: MovieSlideProps) {
 
   return (
     <div>
-      <h3 className='text-2xl py-6 px-20'>
+      <h3 className='text-2xl font-bold py-6 px-20'>
         {category
           .replace(/_/g, ' ')
           .toLowerCase()

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap');
+
 .movie-card {
   width: 220px;
   height: 330px;
@@ -19,6 +21,12 @@
 
 .overlay:hover {
   opacity: 1;
+}
+
+.overlay-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .movie-card:hover {

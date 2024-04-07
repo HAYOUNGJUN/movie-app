@@ -1,13 +1,30 @@
 import { type Movie } from '../../model/types';
+import { Badge } from '../ui/badge';
 import { Card, CardContent } from '../ui/card';
+import { Separator } from '../ui/separator';
+import { ThumbsUpIcon } from 'lucide-react';
 
 import './MovieCard.style.css';
+import { useFetchGenres } from '@/hooks/useFetchGenres';
 
 type MovieCardProps = {
   movie: Movie;
 };
 
 export default function MovieCard({ movie }: MovieCardProps) {
+  const { data: genreData } = useFetchGenres();
+
+  function showGenreName(genreIdList: number[]) {
+    if (!genreData) return [];
+
+    const genreNameList = genreIdList.map((id) => {
+      const genreObj = genreData.find((genre) => genre.id === id);
+      return genreObj!.name;
+    });
+
+    return genreNameList;
+  }
+
   return (
     <Card
       style={{
@@ -18,8 +35,40 @@ export default function MovieCard({ movie }: MovieCardProps) {
       }}
       className='movie-card border-none'
     >
-      <CardContent className='flex items-center justify-center p-6'>
-        {/* <span className='text-lg font-semibold'>{movie.title}</span> */}
+      <CardContent className='flex flex-col justify-between p-6 pt-12 overlay'>
+        <div>
+          <span className='text-zinc-100 font-semibold text-2xl overlay-title'>
+            {movie.title}
+          </span>
+          <Separator className='my-2' />
+          {showGenreName(movie.genre_ids).map((genre, index) => (
+            <Badge key={index} variant='destructive' className='m-1 rounded-md'>
+              {genre}
+            </Badge>
+          ))}
+        </div>
+        <div className='flex justify-between items-center text-sm'>
+          <div className='flex items-center'>
+            <img
+              src='https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/IMDb_Logo_Square.svg/256px-IMDb_Logo_Square.svg.png?20200218171646'
+              alt='imdb logo'
+              width={16}
+              className='mr-1'
+            />
+            <span>{movie.vote_average}</span>
+          </div>
+          <div className='flex items-center'>
+            <ThumbsUpIcon size={16} className='mr-1' />
+            <span>{movie.popularity}</span>
+          </div>
+          {movie.adult ? (
+            <Badge className='bg-red-600 italic'>+18</Badge>
+          ) : (
+            <Badge className='bg-lime-500 text-zinc-900 flex justify-center items-center font-extrabold'>
+              All
+            </Badge>
+          )}
+        </div>
       </CardContent>
     </Card>
   );
