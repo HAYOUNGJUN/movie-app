@@ -1,5 +1,6 @@
 import LoadingIndicator from '@/components/LoadingIndicator';
 import MovieCard from '@/components/MovieCard/MovieCard';
+import PaginationSection from '@/components/PaginationSection';
 import { useSearchMovieQuery } from '@/hooks/useSearchMovie';
 import { useSearchParams } from 'react-router-dom';
 
@@ -10,7 +11,7 @@ export default function MoviesPage() {
   const { data, isLoading, isError, error } = useSearchMovieQuery(
     keyword || undefined
   );
-  console.log(data?.results);
+  console.log(data);
 
   if (isLoading) {
     return <LoadingIndicator size={150} />;
@@ -26,11 +27,12 @@ export default function MoviesPage() {
       <section className='col-span-2'>
         <ul className='grid grid-cols-4 gap-4'>
           {data?.results.map((movie) => (
-            <li>
-              <MovieCard key={movie.id} movie={movie} />
+            <li key={movie.id}>
+              <MovieCard movie={movie} />
             </li>
           ))}
         </ul>
+        <PaginationSection totalPages={data!.total_pages} className='p-8' />
       </section>
     </main>
   );
