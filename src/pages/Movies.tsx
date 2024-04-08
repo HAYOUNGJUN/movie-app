@@ -2,16 +2,24 @@ import LoadingIndicator from '@/components/LoadingIndicator';
 import MovieCard from '@/components/MovieCard/MovieCard';
 import PaginationSection from '@/components/PaginationSection';
 import { useSearchMovieQuery } from '@/hooks/useSearchMovie';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 export default function MoviesPage() {
   const [searchParams] = useSearchParams();
+  const [currPage, setCurrPage] = useState(1);
+
   const keyword = searchParams.get('q');
 
+  useEffect(() => {
+    setCurrPage(1);
+  }, [keyword]);
+
   const { data, isLoading, isError, error } = useSearchMovieQuery(
-    keyword || undefined
+    keyword || undefined,
+    currPage || undefined
   );
-  console.log(data);
+  // console.log(data);
 
   if (isLoading) {
     return <LoadingIndicator size={150} />;
@@ -32,7 +40,12 @@ export default function MoviesPage() {
             </li>
           ))}
         </ul>
-        <PaginationSection totalPages={data!.total_pages} className='p-8' />
+        <PaginationSection
+          totalPages={data!.total_pages}
+          currentPage={currPage}
+          setCurrentPage={setCurrPage}
+          className='p-8'
+        />
       </section>
     </main>
   );

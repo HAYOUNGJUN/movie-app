@@ -1,4 +1,4 @@
-import type { ReactNode, ComponentProps } from 'react';
+import type { ComponentProps, Dispatch, SetStateAction } from 'react';
 import {
   Pagination,
   PaginationContent,
@@ -11,53 +11,84 @@ import {
 
 type PaginationSectionProps = {
   totalPages: number;
+  currentPage: number;
+  setCurrentPage: Dispatch<SetStateAction<number>>;
 } & ComponentProps<'nav'>;
 
 export default function PaginationSection({
   totalPages,
+  currentPage,
+  setCurrentPage,
   ...props
 }: PaginationSectionProps) {
-  let content: ReactNode;
   const pages: number[] = [];
 
   if (totalPages <= 5) {
     for (let i = 1; i <= totalPages; i++) {
       pages.push(i);
     }
-    content = pages.map((page) => (
-      <PaginationItem>
-        <PaginationLink>{page}</PaginationLink>
-      </PaginationItem>
-    ));
   } else {
-    for (let i = 1; i <= 3; i++) {
-      pages.push(i);
+    if (currentPage < 5) {
+      for (let i = 1; i <= 5; i++) {
+        pages.push(i);
+      }
+    } else {
+      if (currentPage <= totalPages - 2) {
+        for (let i = currentPage - 2; i <= currentPage + 2; i++) {
+          pages.push(i);
+        }
+      } else {
+        for (let i = totalPages - 4; i <= totalPages; i++) {
+          pages.push(i);
+        }
+      }
     }
-    content = pages.map((page) => (
-      <PaginationItem>
-        <PaginationLink>{page}</PaginationLink>
-      </PaginationItem>
-    ));
-
-    return (
-      <>
-        <Pagination {...props}>
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious href='#' />
-            </PaginationItem>
-            {content}
-            {totalPages > 5 && (
-              <PaginationItem>
-                <PaginationEllipsis />
-              </PaginationItem>
-            )}
-            <PaginationItem>
-              <PaginationNext href='#' />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
-      </>
-    );
   }
+
+  function handlePrevPage() {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  }
+
+  function handleNextPage() {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  }
+
+  return (
+    <>
+      <Pagination {...props}>
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious onClick={handlePrevPage} />
+          </PaginationItem>
+          {totalPages > 5 && currentPage >= 5 && (
+            <PaginationItem>
+              <PaginationEllipsis />
+            </PaginationItem>
+          )}
+          {pages.map((page) => (
+            <PaginationItem key={page}>
+              <PaginationLink
+                onClick={() => setCurrentPage(page)}
+                isActive={page === currentPage}
+              >
+                {page}
+              </PaginationLink>
+            </PaginationItem>
+          ))}
+          {totalPages > 5 && currentPage < totalPages - 2 && (
+            <PaginationItem>
+              <PaginationEllipsis />
+            </PaginationItem>
+          )}
+          <PaginationItem>
+            <PaginationNext onClick={handleNextPage} />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
+    </>
+  );
 }

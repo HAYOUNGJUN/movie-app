@@ -27,12 +27,19 @@ export default function MovieCard({ movie }: MovieCardProps) {
 
   return (
     <Card
-      style={{
-        backgroundImage:
-          'url(' +
-          `https://media.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path}` +
-          ')',
-      }}
+      style={
+        movie.poster_path
+          ? {
+              backgroundImage:
+                'url(' +
+                `https://media.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path}` +
+                ')',
+            }
+          : {
+              backgroundImage:
+                'url(https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png)',
+            }
+      }
       className='movie-card border-none'
     >
       <CardContent className='flex flex-col justify-between p-6 pt-12 overlay'>
