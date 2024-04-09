@@ -26,3 +26,13 @@
 .banner-info > * {
   z-index: 2;
 }
+
+@media screen and (max-width: 768px) {
+  .banner-info {
+    display: flex;
+    justify-content: flex-end;
+    text-align: end;
+    width: 100%;
+    padding-right: 2rem;
+  }
+}

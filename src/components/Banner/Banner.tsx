@@ -31,7 +31,9 @@ export default function Banner() {
         <h1 className='text-red-600 text-4xl font-bold mb-4'>
           {data!.results[randomIndex].title}
         </h1>
-        <p className='text-lg'>{data!.results[randomIndex].overview}</p>
+        <p className='text-lg md:block hidden'>
+          {data!.results[randomIndex].overview}
+        </p>
       </div>
     </div>
   );

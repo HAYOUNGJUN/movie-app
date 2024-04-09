@@ -62,7 +62,10 @@ export default function PaginationSection({
       <Pagination {...props}>
         <PaginationContent>
           <PaginationItem>
-            <PaginationPrevious onClick={handlePrevPage} />
+            <PaginationPrevious
+              onClick={handlePrevPage}
+              className='cursor-pointer'
+            />
           </PaginationItem>
           {totalPages > 5 && currentPage >= 5 && (
             <PaginationItem>
@@ -74,6 +77,7 @@ export default function PaginationSection({
               <PaginationLink
                 onClick={() => setCurrentPage(page)}
                 isActive={page === currentPage}
+                className='cursor-pointer'
               >
                 {page}
               </PaginationLink>
@@ -85,7 +89,10 @@ export default function PaginationSection({
             </PaginationItem>
           )}
           <PaginationItem>
-            <PaginationNext onClick={handleNextPage} />
+            <PaginationNext
+              onClick={handleNextPage}
+              className='cursor-pointer'
+            />
           </PaginationItem>
         </PaginationContent>
       </Pagination>
