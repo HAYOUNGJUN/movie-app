@@ -30,10 +30,10 @@ export default function MoviesPage() {
   }
 
   return (
-    <main className='grid grid-cols-3 gap-4 p-10 mx-auto'>
+    <main className='grid grid-cols-1 md:grid-cols-3 gap-4 p-10 mx-auto'>
       <section>필터</section>
       <section className='col-span-2'>
-        <ul className='grid grid-cols-4 gap-4'>
+        <ul className='grid grid-cols-1 md:grid-cols-4 gap-4'>
           {data?.results.map((movie) => (
             <li key={movie.id}>
               <MovieCard movie={movie} />

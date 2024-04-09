@@ -2,3 +2,9 @@
   overflow: hidden;
   height: 440px;
 }
+
+@media screen and (max-width: 768px) {
+  .carousel-container {
+    aspect-ratio: 1 / 1;
+  }
+}

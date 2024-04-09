@@ -33,7 +33,7 @@ export default function MovieSlide({ category }: MovieSlideProps) {
 
   return (
     <div>
-      <h3 className='text-2xl font-bold py-6 px-20'>
+      <h3 className='text-2xl font-bold pt-4 md:pt-6 px-4 md:px-20'>
         {category
           .replace(/_/g, ' ')
           .toLowerCase()
@@ -43,7 +43,7 @@ export default function MovieSlide({ category }: MovieSlideProps) {
       <div className='flex justify-center'>
         <Carousel
           plugins={[plugin.current]}
-          className='w-full max-w-7xl'
+          className='w-full max-w-xs md:max-w-7xl'
           onMouseEnter={plugin.current.stop}
           onMouseLeave={plugin.current.reset}
         >
@@ -51,7 +51,7 @@ export default function MovieSlide({ category }: MovieSlideProps) {
             {data!.results.map((movie) => (
               <CarouselItem
                 key={movie.id}
-                className='basis-1 md:basis-1/2 lg:basis-1/5 carousel-container rounded-lg'
+                className='flex items-center justify-center md:basis-1/3 lg:basis-1/5 carousel-container rounded-lg'
               >
                 <div className='p-1'>
                   <MovieCard movie={movie} />
