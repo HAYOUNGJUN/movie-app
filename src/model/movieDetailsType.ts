@@ -24,7 +24,7 @@ export type MovieDetail = {
     iso_3166_1: string;
     name: string;
   }>;
-  release_data: string;
+  release_date: string;
   revenue: number;
   runtime: number;
   spoken_languages: Array<{
