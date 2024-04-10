@@ -1,4 +1,4 @@
-import { MovieResponse } from '@/model/types';
+import { MovieResponse } from '@/model/movieListsType';
 import { api } from '@/utils/http';
 import { useQuery } from '@tanstack/react-query';
 

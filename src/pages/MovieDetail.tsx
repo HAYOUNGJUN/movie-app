@@ -1,3 +1,10 @@
+import { useFetchMovieDetailQuery } from '@/hooks/useFetchMovieDetail';
+import { useParams } from 'react-router-dom';
+
 export default function MovieDetailPage() {
-  return <>Movie Detail page</>;
+  const { movieId } = useParams();
+  const { data } = useFetchMovieDetailQuery(+movieId!);
+  console.log(data);
+
+  return <>{data?.homepage}</>;
 }

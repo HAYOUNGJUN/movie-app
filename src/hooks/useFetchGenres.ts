@@ -1,4 +1,4 @@
-import { GenresResponse } from '@/model/types';
+import { GenresResponse } from '@/model/genresType';
 import { api } from '@/utils/http';
 import { useQuery } from '@tanstack/react-query';
 

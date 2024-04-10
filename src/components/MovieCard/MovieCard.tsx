@@ -1,4 +1,4 @@
-import { type Movie } from '../../model/types';
+import { type Movie } from '../../model/movieListsType';
 import { Badge } from '../ui/badge';
 import { Card, CardContent } from '../ui/card';
 import { Separator } from '../ui/separator';
@@ -6,6 +6,7 @@ import { ThumbsUpIcon } from 'lucide-react';
 
 import './MovieCard.style.css';
 import { useFetchGenres } from '@/hooks/useFetchGenres';
+import { useNavigate } from 'react-router-dom';
 
 type MovieCardProps = {
   movie: Movie;
@@ -13,6 +14,7 @@ type MovieCardProps = {
 
 export default function MovieCard({ movie }: MovieCardProps) {
   const { data: genreData } = useFetchGenres();
+  const navigate = useNavigate();
 
   function showGenreName(genreIdList: number[]) {
     if (!genreData) return [];
@@ -41,6 +43,7 @@ export default function MovieCard({ movie }: MovieCardProps) {
             }
       }
       className='movie-card border-none'
+      onClick={() => navigate(`/movies/${movie.id}`)}
     >
       <CardContent className='flex flex-col justify-between p-6 pt-12 overlay'>
         <div>
