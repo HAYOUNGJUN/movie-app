@@ -11,7 +11,7 @@ export default function TrailerSection({ movieId }: TrailerSectionProps) {
 
   let trailerIndex = 0;
   if (data) {
-    trailerIndex = data.findIndex((video) => video.type === 'Trailer');
+    trailerIndex = data.findLastIndex((video) => video.type === 'Trailer');
   }
 
   const onPlayerReady: YouTubeProps['onReady'] = (event) => {
