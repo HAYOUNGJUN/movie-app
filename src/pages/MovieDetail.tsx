@@ -1,4 +1,5 @@
 import LoadingIndicator from '@/components/LoadingIndicator';
+import TrailerSection from '@/components/TrailerSection';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { useFetchMovieDetailQuery } from '@/hooks/useFetchMovieDetail';
@@ -10,7 +11,6 @@ export default function MovieDetailPage() {
   const { data, isLoading, isError, error } = useFetchMovieDetailQuery(
     +movieId!
   );
-  console.log(data);
 
   if (isLoading) {
     return <LoadingIndicator size={150} />;
@@ -80,7 +80,7 @@ export default function MovieDetailPage() {
         <section>{data?.overview}</section>
         <Separator className='my-6 bg-zinc-500' />
         <section>
-          <p className='my-2'>
+          <div className='my-2'>
             <Badge
               variant='destructive'
               className='w-32 text-sm justify-center mr-2'
@@ -88,8 +88,8 @@ export default function MovieDetailPage() {
               Budget
             </Badge>
             ${data?.budget}
-          </p>
-          <p className='my-2'>
+          </div>
+          <div className='my-2'>
             <Badge
               variant='destructive'
               className='w-32 text-sm justify-center mr-2'
@@ -97,8 +97,8 @@ export default function MovieDetailPage() {
               Revenue
             </Badge>
             ${data?.revenue}
-          </p>
-          <p className='my-2'>
+          </div>
+          <div className='my-2'>
             <Badge
               variant='destructive'
               className='w-32 text-sm justify-center mr-2'
@@ -106,8 +106,8 @@ export default function MovieDetailPage() {
               Release Day
             </Badge>
             {data?.release_date}
-          </p>
-          <p className='my-2'>
+          </div>
+          <div className='my-2'>
             <Badge
               variant='destructive'
               className='w-32 text-sm justify-center mr-2'
@@ -115,9 +115,12 @@ export default function MovieDetailPage() {
               Time
             </Badge>
             {data?.runtime} m
-          </p>
+          </div>
         </section>
         <Separator className='my-6 bg-zinc-500' />
+        <section>
+          <TrailerSection movieId={+movieId!} />
+        </section>
       </section>
     </main>
   );
