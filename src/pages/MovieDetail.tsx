@@ -35,7 +35,7 @@ export default function MovieDetailPage() {
             width={450}
           />
         </section>
-        <section className=''>
+        <section className='md:mx-0 mx-4'>
           <section>
             {data?.genres.map((genre) => (
               <Badge
